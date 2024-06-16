@@ -278,7 +278,7 @@ int main()
         arr[(y - 1) / 2][(x - 1) / 5] = 2;
         wrefresh(win);
 
-        clock_t delay = 0.3 * CLOCKS_PER_SEC;   // 0.5초 간격으로 반복(이동)
+        clock_t delay = 0.5 * CLOCKS_PER_SEC;   // 0.5초 간격으로 반복(이동)
         clock_t delayItem = 2 * CLOCKS_PER_SEC; // 2초 간격으로 반복(item생성)
         clock_t ptime = clock();
         clock_t ptimeItem = clock();
@@ -299,12 +299,12 @@ int main()
         int whileTrue = 1; // state == n, h.len<=3 일 때, whileTrue =0(반복문 종료) 
         while (whileTrue)
         {   
-            // if ((clock() - dtime) >= 10*CLOCKS_PER_SEC){
-            //     dtime=clock();
-            //     if (delay>0.2*CLOCKS_PER_SEC){
-            //         delay-= 0.2*CLOCKS_PER_SEC;
-            //     }
-            // }
+            if ((clock() - dtime) >= 10*CLOCKS_PER_SEC){
+                dtime=clock();
+                if (delay>0.2*CLOCKS_PER_SEC){
+                    delay-= 0.2*CLOCKS_PER_SEC;
+                }
+            }
             ch = getch();
             state = 'g';
             switch (ch)
