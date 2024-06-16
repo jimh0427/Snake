@@ -185,58 +185,58 @@ citem::citem(int sz)
             for (int y = 0; y < 21; y++)
                 citemList[y][x] = 0;
         }
- }
+    }
 
-void citem::citemTimeReduce(WINDOW *win, intar[21]){
- (int x = 0; x < 21; x++){의 경우
- (int = 0; y < 21; y++){
- if (citemList[y][x] != 0){
- citemList[y][x] -= 1;
- if (citemList[y][x] == 0){
- arr[y][x] = 0; // 색칠
- 와트론(승용, COLOR_PAIR(1));
- mvwprintw(win, y* 2 + 1, 5 * x + 1, "");
- mvwprintw(win, y * 2 + 2, 5 * x + 1, "");
- 와트오프(승차, COLOR_PAIR(1));
- 새로고침(승리);
- }
- }
- }
- }
+void citem::citemTimeReduce(WINDOW *win, int arr[21][21]){
+    for (int x = 0; x < 21; x++){
+        for (int y = 0; y < 21; y++){
+            if (citemList[y][x] != 0){
+                citemList[y][x] -= 1;
+                if (citemList[y][x] == 0){
+                    arr[y][x] = 0; // 색칠
+                    wattron(win, COLOR_PAIR(1));
+                    mvwprintw(win, y * 2 + 1, 5 * x + 1, "    ");
+                    mvwprintw(win, y * 2 + 2, 5 * x + 1, "    ");
+                    wattroff(win, COLOR_PAIR(1));
+                    wrefresh(win);
+                }
+            }
+        }
+    }
 }
 
-void citem::citemChange (WINDOW *win, int&x, int&y, int&color_type){
- 와트론(win, COLOR_PAIR(color_type));
- mvwprintw(win, y, x, "");
- mvwprintw(win, y + 1, x, "");
- wattroff(win, COLOR_PAIR(color_type));
- 새로고침(승리);
+void citem::citemChange(WINDOW *win, int &x, int &y, int& color_type){
+    wattron(win, COLOR_PAIR(color_type));
+    mvwprintw(win, y, x, "    ");
+    mvwprintw(win, y + 1, x, "    ");
+    wattroff(win, COLOR_PAIR(color_type));
+    wrefresh(win);
 }
 
-게이트::게이트(int sz)
- {
- (int x = 0; x < 21; x++)의 경우
- {
- (int = 0; y < 21; y++)의 경우
- gateList[y][x] = 0;
- }
- }
+gate::gate(int sz)
+    {
+        for (int x = 0; x < 21; x++)
+        {
+            for (int y = 0; y < 21; y++)
+                gateList[y][x] = 0;
+        }
+    }
 
-void gate::gateTimeReduce(WINDOW *win, inter[21]){
- (int x = 0; x < 21; x++){의 경우
- (int = 0; y < 21; y++){
- if (gateList[y][x]!= 0){
- gateList[y][x] -= 1;
- if (gateList[y][x] == 0){
- arr[y][x] = 3; // 색칠
- 와트론(승용, COLOR_PAIR(5));
- mvwprintw(win, y* 2 + 1, 5 * x + 1, "");
- mvwprintw(win, y * 2 + 2, 5 * x + 1, "");
- 새로고침(승리);
- 와트오프(승차, COLOR_PAIR(5));
- 새로고침(승리);
- }
- }
- }
- }
+void gate::gateTimeReduce(WINDOW *win, int arr[21][21]){
+    for (int x = 0; x < 21; x++){
+        for (int y = 0; y < 21; y++){
+            if (gateList[y][x] != 0){
+                gateList[y][x] -= 1;
+                if (gateList[y][x] == 0){
+                    arr[y][x] = 3; // 색칠
+                    wattron(win, COLOR_PAIR(5));
+                    mvwprintw(win, y * 2 + 1, 5 * x + 1, "    ");
+                    mvwprintw(win, y * 2 + 2, 5 * x + 1, "    ");
+                    wrefresh(win);
+                    wattroff(win, COLOR_PAIR(5));
+                    wrefresh(win);
+                }
+            }
+        }
+    }
 }
