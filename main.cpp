@@ -70,6 +70,7 @@ int main()
         // std::pair<int, int> arrGates[442];
         int arrGates[442][2]; //for 구문 순서대로 벽의 인덱스를 집어넣는 배열. 벽 추가 -> makeGates 나머지 연산 증가 필요.
         int numberGates = 0;
+        int itemcnt=0;
         //map 만들기
         switch(map_change){
         case 3:
@@ -278,7 +279,7 @@ int main()
         arr[(y - 1) / 2][(x - 1) / 5] = 2;
         wrefresh(win);
 
-        clock_t delay = 0.5 * CLOCKS_PER_SEC;   // 0.5초 간격으로 반복(이동)
+        clock_t delay = 0.6 * CLOCKS_PER_SEC;   // 0.5초 간격으로 반복(이동)
         clock_t delayItem = 2 * CLOCKS_PER_SEC; // 2초 간격으로 반복(item생성)
         clock_t ptime = clock();
         clock_t ptimeItem = clock();
@@ -296,7 +297,8 @@ int main()
         int citem_appear=0;
         int gateFirstProduce=1; // 첫 gate생성에만 씀
 
-        int whileTrue = 1; // state == n, h.len<=3 일 때, whileTrue =0(반복문 종료) 
+        int whileTrue = 1; // state == n, h.len<=3 일 때, whileTrue =0(반복문 종료)
+        clock_t gametime=clock();
         while (whileTrue)
         {   
             if ((clock() - dtime) >= 10*CLOCKS_PER_SEC){
@@ -397,7 +399,7 @@ int main()
                 
                 //이동한 곳이 item이면 state=p로 설정. p면 꼬리 자르는 코드가 실행되지 않음
                 else if (arr[(y - 1) / 2][(x - 1) / 5] == 1)
-                {
+                {   itemcnt-=1;
                     state = 'p';
                     items.itemList[(y - 1) / 2][(x - 1) / 5] = 0;
                     eat_growth+=1;
@@ -406,7 +408,7 @@ int main()
                 }
                 //이동한 곳이 poison이면 state=n으로 설정. n이면 꼬리를 두번 잘라냄
                 else if (arr[(y - 1) / 2][(x - 1) / 5] == 2)
-                {
+                {   itemcnt-=1;
                     state = 'n';
                     poisons.poisonList[(y - 1) / 2][(x - 1) / 5] = 0;
                     eat_poison+=1;
@@ -506,6 +508,7 @@ int main()
                 mvwprintw(win3, 7, 4, "+: %d ( %c )", growth_mission[map_change], growth_check);
                 mvwprintw(win3, 9, 4, "-: %d ( %c )", posion_mission[map_change], posion_check);
                 mvwprintw(win3, 11, 4, "G: %d ( %c )",  gate_mission[map_change], gate_check);
+                mvwprintw(win2, 15, 4, "Game Time:  %ld sec", (clock()-gametime)/CLOCKS_PER_SEC);
                 wrefresh(win2);
                 wrefresh(win3);
                 if (len_check=='v'&&growth_check=='v'&&posion_check=='v'&&gate_check=='v'){
@@ -513,20 +516,28 @@ int main()
                 }
                 wrefresh(win);
             }
-
             if ((clock() - ptimeItem) >= delayItem)//설정한 시간마다 반복
             {   
                 ptimeItem = clock();
-                items.lifeTimeReduce(win, arr);//모든 lifetime 1 감소(lifeTime = rand() % 3 + 2)
-                makeItems(win, arr, items);//랜덤 위치에 생성
-                poisons.poisonTimeReduce(win, arr);
-                makePoison(win, arr, poisons);
+                items.lifeTimeReduce(win, arr,itemcnt);//모든 lifetime 1 감소(lifeTime = rand() % 3 + 2)
+                poisons.poisonTimeReduce(win, arr,itemcnt);
+                if (itemcnt<3){
+                    srand(clock());
+                    int selectItem = rand() % 2;
+                    if (selectItem){
+                        makeItems(win, arr, items);//랜덤 위치에 생성
+                        itemcnt+=1;
+                    }
+                    else{
+                        makePoison(win, arr, poisons);
+                        itemcnt+=1;
+                        }
+                    }
                 if (citem_appear%3==0){
                     citems.citemTimeReduce(win, arr);
                     makeCitems(win, arr, citems);
                 }
                 citem_appear+=1;
-
                 if (arr[gateY1][gateX1] != -1 || arr[gateY2][gateX2] != -1&&gates.gateList[gateY2][gateX2]!=0&&gates.gateList[gateY1][gateX1]!=0) //snake가 gate위에 없다면, gate 수명 단축(gateTimeReduce)
                 { 
                     gates.gateTimeReduce(win, arr); //gate time 1 감소()
@@ -544,7 +555,6 @@ int main()
                 }
             }
             int check=0; // 스네이크가 벽에 있으면, while break, gameover
-            
             body *p = h.next;
             for (int i = 0; i < h.len -2; i++)
                     {
