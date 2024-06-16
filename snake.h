@@ -1,35 +1,35 @@
-#ifndef _NCURSES PROJECT_
-#정의 _NCURSES PROJECT_
+#ifndef _NCURSESPROJECT_
+#define _NCURSESPROJECT_
 #include <ncursesw/curses.h>
 #include <utility>
-#include <스트링>
-#include <아이오스트림>
+#include <string>
+#include <iostream>
 
-학급체 {
-공개:
- xx;
- 인티(inty);
- 본문 *다음;
- body(int x, inty, body * next = nullptr);
+class body{
+public:
+    int x;
+    int y;
+    body *next;
+    body(int x, int y, body *next = nullptr);
 };
 
-반장 {
-공개:
- xx;
- 인티(inty);
- 강직하게;
- 최대치의
+class head{
+public:
+    int x;
+    int y;
+    int len;
+    int maxlen;
 
- 본문 *다음;
- 헤드(int x, inty, body *n = nullptr); 
+    body *next;
+    head(int x, int y, body *n = nullptr);   
 };
 
-void remove (WINDOW *win, int &x, int &y, int gateList[21]]);//x,y 좌표의 색 지우기
-// void removeGate(WINDOW *win, int &x, int &y, int gateList[21]]);//x,y 좌표의 색 지우기
-void move (WINDOW *win, int & x, int &y, int & color_type);//x,y 좌표에 색 칠하기
-void moveGate(WINDOW *win, int &x, int &y);/x,y 좌표에 색 칠하기
+void remove(WINDOW *win, int &x, int &y, int gateList[21][21]);//x,y 좌표의 색 지우기
+// void removeGate(WINDOW *win, int &x, int &y, int gateList[21][21]);//x,y 좌표의 색 지우기
+void move(WINDOW *win, int &x, int &y, int &color_type);//x,y좌표에 색 칠하기
+void moveGate(WINDOW *win, int &x, int &y);//x,y좌표에 색 칠하기
 
-void memory (body **p,intx,inty,body *n);/body 객체 생성해서 헤드.다음 에 연결
+void memory(body **p, int x, int y, body *n);//body 객체 생성해서 head.next에 연결
 
 
 
