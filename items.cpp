@@ -130,12 +130,13 @@ item::item(int sz)
         }
     }
 
-void item::lifeTimeReduce(WINDOW *win, int arr[21][21]){
+void item::lifeTimeReduce(WINDOW *win, int arr[21][21],int &itemcnt){
     for (int x = 0; x < 21; x++){
         for (int y = 0; y < 21; y++){
             if (itemList[y][x] != 0){
                 itemList[y][x] -= 1;
                 if (itemList[y][x] == 0){
+                    itemcnt-=1;
                     arr[y][x] = 0; // 색칠
                     wattron(win, COLOR_PAIR(1));
                     mvwprintw(win, y * 2 + 1, 5 * x + 1, "    ");
@@ -157,12 +158,13 @@ poison::poison(int sz){
             poisonList[y][x] = 0;
     }
 }
-void poison::poisonTimeReduce(WINDOW *win, int arr[21][21]){
+void poison::poisonTimeReduce(WINDOW *win, int arr[21][21],int & itemcnt){
     for (int x = 0; x < 21; x++){
         for (int y = 0; y < 21; y++){
             if (poisonList[y][x] != 0){
                 poisonList[y][x] -= 1;
                 if (poisonList[y][x] == 0){
+                    itemcnt-=1;
                     arr[y][x] = 0; // 색칠
                     wattron(win, COLOR_PAIR(1));
                     mvwprintw(win, y * 2 + 1, 5 * x + 1, "    ");
