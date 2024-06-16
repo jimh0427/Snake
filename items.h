@@ -15,7 +15,7 @@ class poison{
 public:
     int poisonList[21][21];
     poison(int sz);
-    void poisonTimeReduce(WINDOW *win, int arr[21][21]);
+    void poisonTimeReduce(WINDOW *win, int arr[21][21],int & itemcnt);
 };
 
 //poison과 동일함
@@ -23,7 +23,7 @@ class item{
 public:
     int itemList[21][21];
     item(int sz);
-    void lifeTimeReduce(WINDOW *win, int arr[21][21]);
+    void lifeTimeReduce(WINDOW *win, int arr[21][21],int& itemcnt);
 };
 
 class citem{
