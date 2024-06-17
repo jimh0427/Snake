@@ -1,14 +1,13 @@
 #include "snake.h"
 
-// void remove(WINDOW *win, int &x, int &y){
 
-//     wattron(win, COLOR_PAIR(1));
-//     mvwprintw(win, y, x, "    ");
-//     mvwprintw(win, y + 1, x, "    ");
-//     wattroff(win, COLOR_PAIR(1));
 
-//     wrefresh(win);
-// }
+
+
+
+
+
+
 
 
 void remove(WINDOW *win, int &x, int &y, int gateList[21][21])
@@ -21,7 +20,7 @@ void remove(WINDOW *win, int &x, int &y, int gateList[21][21])
     {
         // 게이트라면 보라색 유지
         wattron(win, COLOR_PAIR(6));
-    } 
+    }
     else 
     {
         // 게이트가 아니라면 흰색으로 변경
@@ -46,15 +45,6 @@ void move(WINDOW *win, int &x, int &y, int &color_type){
     wrefresh(win);
 }
 
-// void moveGate(WINDOW *win, int &x, int &y){
-
-//     wattron(win, COLOR_PAIR(6));
-//     mvwprintw(win, y, x, "    ");
-//     mvwprintw(win, y + 1, x, "    ");
-//     wattroff(win, COLOR_PAIR(6));
-
-//     wrefresh(win);
-// }
 
 void memory(body **p, int x, int y, body *n){
     *p = new body(x, y, n);
