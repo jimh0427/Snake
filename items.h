@@ -4,10 +4,11 @@
 #include <ncursesw/curses.h>
 #include <ctime>
 #include <stdlib.h>
-#include <utility>
 #include <string>
 #include <iostream>
-#include <array>
+
+
+
 
 //poison의 lifetime을 관리하는 배열poisonList. 
 //존재하는 모든 poison의 lifetime을 1 감소시키는 함수 poisonTimeReduce.
