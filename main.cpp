@@ -1,18 +1,20 @@
-// 뱀: -1 빈 공간: 0 item:1 poison:2 벽 :3  게이트:4  citem:5
+// 뱀: -1 빈 공간: 0 item:1 poison:2 벽 :3  게이트:4  citem:5 벽생성지역:9
 #include <ncursesw/curses.h>
 #include <locale.h>
 #include <ctime>
 #include <stdlib.h>
 #include "snake.h"
 #include "items.h"
-#include <utility>
 #include <string>
 #include <iostream>
-#include <array>
-#include <thread>
-#include <atomic>
-#include <chrono>
-#include <mutex>
+
+
+
+
+
+
+
+
 
 int main()
 {
@@ -240,9 +242,10 @@ int main()
         int eat_citem=0;
         int use_gate=0;
 
-        // int growth_mission[4]={1,1,1,1};
-        // int posion_mission[4]={0,0,0,0};
-        // int gate_mission[4]={0,0,0,0};
+    
+
+
+    
         int growth_mission[4]={1,2,3,4};
         int posion_mission[4]={1,2,3,4};
         int gate_mission[4]={1,1,2,2};
@@ -279,7 +282,7 @@ int main()
         arr[(y - 1) / 2][(x - 1) / 5] = 2;
         wrefresh(win);
 
-        clock_t delay = 0.6 * CLOCKS_PER_SEC;   // 0.5초 간격으로 반복(이동)
+        clock_t delay = 0.5 * CLOCKS_PER_SEC;   // 0.5초 간격으로 반복(이동)
         clock_t delayItem = 2 * CLOCKS_PER_SEC; // 2초 간격으로 반복(item생성)
         clock_t ptime = clock();
         clock_t ptimeItem = clock();
